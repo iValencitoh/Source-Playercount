@@ -51,7 +51,7 @@ config.servers.forEach((srv, id) => {
 			});
 	}
 
-	// Prevent flood the Discord API with unnecessary requests (Credits to github.com/Killa4)
+	// Prevent flooding the Discord API with unnecessary requests (Credits to github.com/Killa4)
 	function setBotStatus(currentStatus) {
 		if (currentStatus === oldStatus) {
 			return;
