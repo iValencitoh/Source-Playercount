@@ -39,6 +39,18 @@ config.servers.forEach((srv, id) => {
 						server.map = res.map;
 					})
 					.then(() => {
+						if (
+							server.playersNumber === undefined ||
+							server.maxPlayers === undefined ||
+							server.map === undefined
+						) {
+							server.bot.user.setStatus('dnd');
+							server.bot.user.setActivity(connecting, {
+								type: 'WATCHING',
+							});
+							return;
+						}
+
 						currentStatus = `${server.playersNumber},${server.maxPlayers},${server.map}`;
 						setBotStatus(currentStatus);
 					});
