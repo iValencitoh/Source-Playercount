@@ -62,9 +62,9 @@ config.servers.forEach((srv, id) => {
 
 		// Handle any kind of undefined errors
 		if (
-			currentStatus[0] == undefined ||
-			currentStatus[1] == undefined ||
-			currentStatus[2] == undefined
+			currentStatus[0] == 'undefined' ||
+			currentStatus[1] == 'undefined' ||
+			currentStatus[2] == 'undefined'
 		) {
 			server.bot.user.setStatus('dnd');
 			server.bot.user.setActivity(connecting, {
