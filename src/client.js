@@ -55,27 +55,27 @@ config.servers.forEach((srv, id) => {
 	function setBotStatus(currentStatus) {
 		if (currentStatus === oldStatus) {
 			return;
-		} else {
-			oldStatus = currentStatus;
-			currentStatus = currentStatus.split(',');
+		}
 
-			// If the server is full
-			if (currentStatus[0] == currentStatus[1]) {
-				server.bot.user.setStatus('idle');
-				server.bot.user.setActivity(
-					`(${currentStatus[0]}/${currentStatus[1]}) | ${currentStatus[2]}`,
-					{ type: 'WATCHING' }
-				);
-				return;
-			}
+		oldStatus = currentStatus;
+		currentStatus = currentStatus.split(',');
 
-			server.bot.user.setStatus('online');
+		// If the server is full
+		if (currentStatus[0] == currentStatus[1]) {
+			server.bot.user.setStatus('idle');
 			server.bot.user.setActivity(
 				`(${currentStatus[0]}/${currentStatus[1]}) | ${currentStatus[2]}`,
 				{ type: 'WATCHING' }
 			);
 			return;
 		}
+
+		server.bot.user.setStatus('online');
+		server.bot.user.setActivity(
+			`(${currentStatus[0]}/${currentStatus[1]}) | ${currentStatus[2]}`,
+			{ type: 'WATCHING' }
+		);
+		return;
 	}
 
 	setInterval(serverQuery, config.refresh);
