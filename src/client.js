@@ -39,18 +39,6 @@ config.servers.forEach((srv, id) => {
 						server.map = res.map;
 					})
 					.then(() => {
-						if (
-							server.playersNumber === undefined ||
-							server.maxPlayers === undefined ||
-							server.map === undefined
-						) {
-							server.bot.user.setStatus('dnd');
-							server.bot.user.setActivity(connecting, {
-								type: 'WATCHING',
-							});
-							return;
-						}
-
 						currentStatus = `${server.playersNumber},${server.maxPlayers},${server.map}`;
 						setBotStatus(currentStatus);
 					});
@@ -72,6 +60,19 @@ config.servers.forEach((srv, id) => {
 		oldStatus = currentStatus;
 		currentStatus = currentStatus.split(',');
 
+		// Handle any kind of undefined errors
+		if (
+			currentStatus[0] == undefined ||
+			currentStatus[1] == undefined ||
+			currentStatus[2] == undefined
+		) {
+			server.bot.user.setStatus('dnd');
+			server.bot.user.setActivity(connecting, {
+				type: 'WATCHING',
+			});
+			return;
+		}
+
 		// If the server is full
 		if (currentStatus[0] == currentStatus[1]) {
 			server.bot.user.setStatus('idle');
@@ -82,6 +83,7 @@ config.servers.forEach((srv, id) => {
 			return;
 		}
 
+		// Is not full
 		server.bot.user.setStatus('online');
 		server.bot.user.setActivity(
 			`(${currentStatus[0]}/${currentStatus[1]}) | ${currentStatus[2]}`,
