@@ -19,7 +19,7 @@ config.servers.forEach((srv, id) => {
 		serverQuery();
 	});
 
-	// Error catch of the Discord API
+	// Catch Discord API errors
 	server.bot.on('error', (err) => {
 		server.bot.user.setStatus('dnd');
 		server.bot.user.setActivity(connecting, { type: 'WATCHING' });
@@ -51,7 +51,7 @@ config.servers.forEach((srv, id) => {
 			});
 	}
 
-	// Prevent flood from Discord API with unnecessary requests (Credits to github.com/Killa4)
+	// Prevent flood the Discord API with unnecessary requests (Credits to github.com/Killa4)
 	function setBotStatus(currentStatus) {
 		if (currentStatus === oldStatus) {
 			return;
