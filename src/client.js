@@ -13,16 +13,18 @@ config.servers.forEach((srv, id) => {
 
 	// The bot is connected
 	server.bot.on('ready', () => {
-		console.log('* Logged in as', server.bot.user.tag);
-		server.bot.user.setStatus('dnd');
-		server.bot.user.setActivity(connecting, { type: 'WATCHING' });
+		console.log(
+			`* Logged in as ${server.bot.user.tag}, assigned server: ${server.ip}:${server.port}`
+		);
+		server.bot.user.setPresence({
+			activity: { name: connecting, type: 'WATCHING' },
+			status: 'dnd',
+		});
 		serverQuery();
 	});
 
 	// Catch Discord API errors
 	server.bot.on('error', (err) => {
-		server.bot.user.setStatus('dnd');
-		server.bot.user.setActivity(connecting, { type: 'WATCHING' });
 		console.error('* An error occurred (Discord API):', err);
 	});
 
@@ -45,10 +47,13 @@ config.servers.forEach((srv, id) => {
 			})
 			// Catch source query errors
 			.catch((err) => {
-				server.bot.user.setStatus('dnd');
-				server.bot.user.setActivity(connecting, { type: 'WATCHING' });
+				server.bot.user.setPresence({
+					activity: { name: connecting, type: 'WATCHING' },
+					status: 'dnd',
+				});
 				console.error('* An error occurred (Server Query):', err);
-			});
+			})
+			.finally(query.close);
 	}
 
 	// Prevent flooding the Discord API with unnecessary requests (Credits to github.com/Killa4)
@@ -66,29 +71,44 @@ config.servers.forEach((srv, id) => {
 			currentStatus[1] == 'undefined' ||
 			currentStatus[2] == 'undefined'
 		) {
-			server.bot.user.setStatus('dnd');
-			server.bot.user.setActivity(connecting, {
-				type: 'WATCHING',
+			server.bot.user.setPresence({
+				activity: { name: connecting, type: 'WATCHING' },
+				status: 'dnd',
+			});
+			return;
+		}
+
+		if (currentStatus[0] == '0') {
+			server.bot.user.setPresence({
+				activity: {
+					name: 'There are no players connected.',
+					type: 'WATCHING',
+				},
+				status: 'idle',
 			});
 			return;
 		}
 
 		// If the server is full
 		if (currentStatus[0] == currentStatus[1]) {
-			server.bot.user.setStatus('idle');
-			server.bot.user.setActivity(
-				`(${currentStatus[0]}/${currentStatus[1]}) | ${currentStatus[2]}`,
-				{ type: 'WATCHING' }
-			);
+			server.bot.user.setPresence({
+				activity: {
+					name: `(${currentStatus[0]}/${currentStatus[1]}) | ${currentStatus[2]}`,
+					type: 'WATCHING',
+				},
+				status: 'idle',
+			});
 			return;
 		}
 
 		// Is not full
-		server.bot.user.setStatus('online');
-		server.bot.user.setActivity(
-			`(${currentStatus[0]}/${currentStatus[1]}) | ${currentStatus[2]}`,
-			{ type: 'WATCHING' }
-		);
+		server.bot.user.setPresence({
+			activity: {
+				name: `(${currentStatus[0]}/${currentStatus[1]}) | ${currentStatus[2]}`,
+				type: 'WATCHING',
+			},
+			status: 'online',
+		});
 		return;
 	}
 
