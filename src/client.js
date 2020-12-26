@@ -31,19 +31,15 @@ config.servers.forEach((srv, id) => {
 	// Source query
 	function serverQuery() {
 		query
-			.players(server.ip, server.port, server.timeout)
+			.info(server.ip, server.port, server.timeout)
+			.then((res) => {
+				server.playersNumber = res.playersnum;
+				server.maxPlayers = res.maxplayers;
+				server.map = res.map;
+			})
 			.then(() => {
-				query
-					.info(server.ip, server.port, server.timeout)
-					.then((res) => {
-						server.playersNumber = res.playersnum;
-						server.maxPlayers = res.maxplayers;
-						server.map = res.map;
-					})
-					.then(() => {
-						currentStatus = `${server.playersNumber},${server.maxPlayers},${server.map}`;
-						setBotStatus(currentStatus);
-					});
+				currentStatus = `${server.playersNumber},${server.maxPlayers},${server.map}`;
+				setBotStatus(currentStatus);
 			})
 			// Catch source query errors
 			.catch((err) => {
