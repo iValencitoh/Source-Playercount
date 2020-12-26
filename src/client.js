@@ -33,12 +33,7 @@ config.servers.forEach((srv, id) => {
 		query
 			.info(server.ip, server.port, server.timeout)
 			.then((res) => {
-				server.playersNumber = res.playersnum;
-				server.maxPlayers = res.maxplayers;
-				server.map = res.map;
-			})
-			.then(() => {
-				currentStatus = `${server.playersNumber},${server.maxPlayers},${server.map}`;
+				currentStatus = `${res.playersnum},${res.maxplayers},${res.map}`;
 				setBotStatus(currentStatus);
 			})
 			// Catch source query errors
