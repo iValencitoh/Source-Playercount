@@ -1,16 +1,33 @@
 {
-	"refresh": 5000,
 	"servers": [
 		{
 			"ip":"1.1.1.1",
 			"port": 27015,
 			"timeout": 5000,
+			"update": 5000,
+			"format": "({players}/{maxPlayers}) | {map}",
+			"noplayers": "There are no players connected.",
+			"connecting": "Connecting into the server...",
+			"statusType": "WATCHING",
+			"statusConnecting": "dnd",
+			"statusNoPlayers": "idle",
+			"statusMaxPlayers": "idle",
+			"statusSlotsAvailable": "online",
 			"token": ""
 		},
 		{
 			"ip":"1.1.1.1",
 			"port": 27016,
 			"timeout": 5000,
+			"update": 5000,
+			"format": "({players}/{maxPlayers}) | {map}",
+			"noplayers": "There are no players connected.",
+			"connecting": "Connecting into the server...",
+			"statusType": "WATCHING",
+			"statusConnecting": "dnd",
+			"statusNoPlayers": "idle",
+			"statusMaxPlayers": "idle",
+			"statusSlotsAvailable": "online",
 			"token": ""
 		}
 	]

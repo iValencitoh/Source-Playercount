@@ -2,8 +2,6 @@ const Discord = require('discord.js');
 const query = require('source-server-query');
 const config = require('../config/settings.json');
 
-const connecting = 'Connecting into the server...';
-
 console.clear();
 config.servers.forEach((srv, id) => {
 	let oldStatus = null;
@@ -17,8 +15,8 @@ config.servers.forEach((srv, id) => {
 			`* Logged in as ${server.bot.user.tag}, assigned server: ${server.ip}:${server.port}`
 		);
 		server.bot.user.setPresence({
-			activity: { name: connecting, type: 'WATCHING' },
-			status: 'dnd',
+			activity: { name: server.connecting, type: server.statusType },
+			status: server.statusConnecting,
 		});
 		serverQuery();
 	});
@@ -39,8 +37,11 @@ config.servers.forEach((srv, id) => {
 			// Catch source query errors
 			.catch((err) => {
 				server.bot.user.setPresence({
-					activity: { name: connecting, type: 'WATCHING' },
-					status: 'dnd',
+					activity: {
+						name: server.connecting,
+						type: server.statusType,
+					},
+					status: server.statusConnecting,
 				});
 				console.error('* An error occurred (Server Query):', err);
 			})
@@ -63,8 +64,8 @@ config.servers.forEach((srv, id) => {
 			currentStatus[2] == 'undefined'
 		) {
 			server.bot.user.setPresence({
-				activity: { name: connecting, type: 'WATCHING' },
-				status: 'dnd',
+				activity: { name: server.connecting, type: server.statusType },
+				status: server.statusConnecting,
 			});
 			return;
 		}
@@ -72,36 +73,43 @@ config.servers.forEach((srv, id) => {
 		if (currentStatus[0] == '0') {
 			server.bot.user.setPresence({
 				activity: {
-					name: 'There are no players connected.',
-					type: 'WATCHING',
+					name: server.noplayers,
+					type: server.statusType,
 				},
-				status: 'idle',
+				status: server.statusNoPlayers,
 			});
 			return;
 		}
+
+		format = server.format;
+		format = format.replace(/{players}/g, currentStatus[0]);
+		format = format.replace(/{maxPlayers}/g, currentStatus[1]);
+		format = format.replace(/{map}/g, currentStatus[2]);
 
 		// If the server is full
 		if (currentStatus[0] == currentStatus[1]) {
 			server.bot.user.setPresence({
 				activity: {
-					name: `(${currentStatus[0]}/${currentStatus[1]}) | ${currentStatus[2]}`,
-					type: 'WATCHING',
+					name: format,
+					type: server.statusType,
 				},
-				status: 'idle',
+				status: server.statusMaxPlayers,
 			});
+			format = server.format;
 			return;
 		}
 
 		// Is not full
 		server.bot.user.setPresence({
 			activity: {
-				name: `(${currentStatus[0]}/${currentStatus[1]}) | ${currentStatus[2]}`,
-				type: 'WATCHING',
+				name: format,
+				type: server.statusType,
 			},
-			status: 'online',
+			status: server.statusSlotsAvailable,
 		});
+		format = server.format;
 		return;
 	}
 
-	setInterval(serverQuery, config.refresh);
+	setInterval(serverQuery, server.update);
 });
