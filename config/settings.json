@@ -3,7 +3,7 @@
 		{
 			"ip":"1.1.1.1",
 			"port": 27015,
-			"timeout": 5000,
+			"timeout": 2500,
 			"update": 5000,
 			"format": "({players}/{maxPlayers}) | {map}",
 			"noplayers": "There are no players connected.",
@@ -18,7 +18,7 @@
 		{
 			"ip":"1.1.1.1",
 			"port": 27016,
-			"timeout": 5000,
+			"timeout": 2500,
 			"update": 5000,
 			"format": "({players}/{maxPlayers}) | {map}",
 			"noplayers": "There are no players connected.",
