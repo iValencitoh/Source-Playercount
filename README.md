@@ -1,10 +1,10 @@
-| App ID | Game                                                                       | Supported |
-| ------ | -------------------------------------------------------------------------- | :-------: |
-| ~      | All source engine games.                                                   |    ✅     |
-| 440    | [Team Fortress 2](http://store.steampowered.com/app/440/)                  |    ✅     |
-| 730    | [Counter-Strike: Global Offensive](http://store.steampowered.com/app/730/) |    ✅     |
-| 4000   | [Garry's Mod](http://store.steampowered.com/app/4000/)                     |    ✅     |
-| 252490 | [Rust](https://store.steampowered.com/app/252490/)                         |    ✅     |
+| App ID | Game                                                                        | Supported |
+| ------ | --------------------------------------------------------------------------- | :-------: |
+| ~      | All source engine games.                                                    |    ✅     |
+| 440    | [Team Fortress 2](https://store.steampowered.com/app/440/)                  |    ✅     |
+| 730    | [Counter-Strike: Global Offensive](https://store.steampowered.com/app/730/) |    ✅     |
+| 4000   | [Garry's Mod](https://store.steampowered.com/app/4000/)                     |    ✅     |
+| 252490 | [Rust](https://store.steampowered.com/app/252490/)                          |    ✅     |
 
 #### Credits:
 
