@@ -1,6 +1,6 @@
 | AppID  | Game                                                                       | Supported |
 | ------ | -------------------------------------------------------------------------- | :-------: |
-| ~      | All source engine games                                                    |    ✅     |
+| ~      | All source engine games.                                                   |    ✅     |
 | 440    | [Team Fortress 2](http://store.steampowered.com/app/440/)                  |    ✅     |
 | 730    | [Counter-Strike: Global Offensive](http://store.steampowered.com/app/730/) |    ✅     |
 | 4000   | [Garry's Mod](http://store.steampowered.com/app/4000/)                     |    ✅     |
