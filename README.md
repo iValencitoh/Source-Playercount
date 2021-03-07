@@ -1,4 +1,4 @@
-| AppID  | Game                                                                       | Supported |
+| App ID | Game                                                                       | Supported |
 | ------ | -------------------------------------------------------------------------- | :-------: |
 | ~      | All source engine games.                                                   |    ✅     |
 | 440    | [Team Fortress 2](http://store.steampowered.com/app/440/)                  |    ✅     |
