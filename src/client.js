@@ -70,10 +70,10 @@ config.servers.forEach((srv, id) => {
 			return;
 		}
 
-		if (currentStatus[0] == '0') {
+		if (currentStatus[0] <= server.lowPlayers) {
 			server.bot.user.setPresence({
 				activity: {
-					name: server.noplayers,
+					name: server.lowPlayersMessage,
 					type: server.statusType,
 				},
 				status: server.statusNoPlayers,
